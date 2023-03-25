@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Exercicio 7</title>
+        <!--BOOTSTRAP 5-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
+    <style>
+        body{
+            background-color: #082032;
+        }
+        .white-font{
+            color: aliceblue;
+        }
+    </style>
+    <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <!--Ocupa toda a tela do computador-->
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand">Programação WEB</a>
+            </div>
+        </nav>
+        
+        <div class="container white-font">
+            <div class="row mt-4">
+                <div class="col">
+                    <h1>
+                        Resolução do Exercicio 7
+                    </h1>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md col-lg-5">
+                    <div class="input-group">
+                        <input type="text" id="input" class="form-control" placeholder="Lista de números inteiros...">
+                        <button type="button" class="btn btn-primary" onclick="execute()">Executar</button>
+                        <!--Caso o input possua a class is-invalid, essa div vai ficar visivel-->
+                        <div class="invalid-feedback">Digite uma lista de numeros válida!(Ex: 1, 2, 3 ...).</div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <h2>Saída:</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div id="answer"></div>
+            </div>
+        </div>
+
+        <footer class="bg-dark fixed-bottom white-font">
+            <div class="container p-2">
+                <div class="row text-center">
+                    <div class="col">
+                        <a class="text-decoration-none text-reset text-primary" 
+                            href="https://github.com/tiduswr">© Harllem Nascimento - 2023</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            const input = document.getElementById("input");
+            input.addEventListener('input', () =>{
+                if(input.classList.contains("is-invalid")) resetError(input);
+            })
+
+            function convertToInt(array){
+                const arr = new Array();
+                for(let i = 0; i < array.length; i++){
+                    arr.push(parseInt(array[i]));
+                }
+                return arr;
+            }
+
+            function validate(numbers){
+                for(let i = 0; i < numbers.length; i++){
+                    if(isNaN(numbers[i])) return false;
+                }
+                return true;
+            }
+
+            function sumOddMultipleOfThree(numbers){
+                let sum = 0;
+                for(let number of numbers){
+                    if(number % 2 !== 0 && number % 3 === 0) sum += number;
+                }
+                return sum;
+            }
+
+            function resetError(inputField){
+                inputField.classList.remove("is-invalid");
+            }
+
+            function execute(){
+                const input = document.getElementById("input");
+                const numbers = convertToInt(input.value.split(","));
+                const answerContainer = document.getElementById("answer");
+
+                if(validate(numbers)){
+                    const answer = sumOddMultipleOfThree(numbers);
+
+                    answerContainer.innerHTML = "A soma dos números impares multiplos de 3 é: " + answer;
+
+                }else{
+                    input.value = "";
+                    answerContainer.innerHTML = "";
+                    input.classList.add("is-invalid");
+                }
+            }
+        </script>
+    </body>
+</html>
